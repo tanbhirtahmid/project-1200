@@ -9,6 +9,17 @@ typedef struct product {
     struct product *next;
 }product;
 
+void printProductInfo(product *p)
+{
+    if (p == NULL) {
+        printf("Product not found.\n");
+        return;
+    }
+
+    printf("ID: %d | Name: %s | Price: %.3f | Quantity: %d\n",
+           p->id, p->name, p->price, p->quantity);
+}
+
 product * createProduct(int id, char *name, float price, int quantitiy){
     product *p = (product *) malloc(sizeof(product));
     p->id = id;
@@ -33,9 +44,19 @@ product *searchID(product *p, int id)
 {
     while (p != NULL) {
         if (p->id == id) {
-            
-            printf("Product found!\n");
-            printf("ID: %d | Name: %s | Price: %.3f | Quantity: %d\n", p->id, p->name, p->price, p->quantity);
+
+            return p;
+        }
+
+        p = p->next;
+    }
+    return NULL;
+}
+
+product *searchName(product *p, char *name)
+{
+    while (p != NULL) {
+        if (strcmp(p->name, name) == 0) {
 
             return p;
         }
@@ -43,6 +64,9 @@ product *searchID(product *p, int id)
         p = p->next;
     }
 
-    printf("Product with ID %d not found.\n", id);
     return NULL;
+}
+
+void delProduct(product * p){
+    
 }
