@@ -4,6 +4,7 @@
 *.out
 
 # Ignore object files
+/main
 *.o
 *.obj
 
