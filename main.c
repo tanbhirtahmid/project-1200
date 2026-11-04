@@ -3,6 +3,7 @@
 
 int main(void)
 {
+    freopen("input.txt", "r", stdin);
     product *start = NULL;
     product *current = NULL;
 
@@ -11,8 +12,8 @@ int main(void)
     float price;
     char choice;
 
-    do {
-        printf("Enter product (ID Name Price Quantity): ");
+    // printf("Enter product (ID Name Price Quantity): ");
+    while (!(id == 999 && strcmp(name, "exit") == 0 && price == 99.0 && quantity == 99)) {
         scanf("%d %99s %f %d", &id, name, &price, &quantity);
 
         product *p = createProduct(id, name, price, quantity);
@@ -27,12 +28,13 @@ int main(void)
             current = p;
         }
 
-        printf("Add another product? (y/n): ");
-        scanf(" %c", &choice);
+        // printf("Add another product? (y/n): ");
+        // scanf(" %c", &choice);
 
-    } while (choice == 'y' || choice == 'Y');
+    }
 
-    listProduct(start);
+    // listProduct(start);
+    printProductInfo(searchName(start, "Bread"));
 
     return 0;
 }
