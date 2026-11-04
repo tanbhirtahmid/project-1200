@@ -24,6 +24,7 @@ int main(void)
         if (start == NULL)
             start = current = p;
         else {
+            p->prev = current;
             current->next = p;
             current = p;
         }

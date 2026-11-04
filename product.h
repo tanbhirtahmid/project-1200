@@ -7,6 +7,7 @@ typedef struct product {
     float price;
     int quantity;
     struct product *next;
+    struct product *prev;
 }product;
 
 void printProductInfo(product *p)
@@ -28,6 +29,7 @@ product * createProduct(int id, char *name, float price, int quantitiy){
     p->price = price;
     p->quantity = quantitiy;
     p->next = NULL;
+    p->prev = NULL;
     return p;
 }
 
