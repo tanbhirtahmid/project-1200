@@ -1,0 +1,12 @@
+# Ignore compiled C executables (files with no extension inside the folder)
+# If you are on Windows, also ignores .exe files
+*.exe
+*.out
+
+# Ignore object files
+*.o
+*.obj
+
+# Ignore debug/build directories if you use them
+bin/
+build/
