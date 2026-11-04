@@ -1,6 +1,7 @@
 // #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 typedef struct product {
     int id;
     char name[100];
@@ -69,6 +70,17 @@ product *searchName(product *p, char *name)
     return NULL;
 }
 
-void delProduct(product * p){
-    
+void delProduct(product **start, product *p)
+{
+    if (p == NULL)
+        return;
+
+    if (p->prev != NULL)
+        p->prev->next = p->next;
+    else
+        *start = p->next;
+
+    if (p->next != NULL)
+        p->next->prev = p->prev;
+
 }

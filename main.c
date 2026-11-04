@@ -35,7 +35,7 @@ int main(void)
     }
 
     // listProduct(start);
-    printProductInfo(searchName(start, "Bread"));
+    printProductInfo(searchName(start, "Tea"));
 
     return 0;
 }
