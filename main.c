@@ -13,8 +13,14 @@ int main(void)
     char choice;
 
     // printf("Enter product (ID Name Price Quantity): ");
-    while (!(id == 999 && strcmp(name, "exit") == 0 && price == 99.0 && quantity == 99)) {
+    while (1) {
         scanf("%d %99s %f %d", &id, name, &price, &quantity);
+
+        if (id == 999 && strcmp(name, "exit") == 0 && price == 99.0 && quantity == 99)
+        {
+            break;
+        }
+        
 
         product *p = createProduct(id, name, price, quantity);
 
@@ -35,7 +41,11 @@ int main(void)
     }
 
     // listProduct(start);
-    printProductInfo(searchName(start, "Tea"));
+    
+    start = delProduct(start, searchName(start, "Bread"));
+    
+    printProductInfo(searchName(start, "Bread"));
+    // listProduct(start);
 
     return 0;
 }

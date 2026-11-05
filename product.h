@@ -70,17 +70,18 @@ product *searchName(product *p, char *name)
     return NULL;
 }
 
-void delProduct(product **start, product *p)
+product *delProduct(product *start, product *p) // deletes the product and returns new head if head is changed
 {
     if (p == NULL)
-        return;
+        return NULL;
 
     if (p->prev != NULL)
         p->prev->next = p->next;
     else
-        *start = p->next;
+        start = p->next;
 
     if (p->next != NULL)
         p->next->prev = p->prev;
 
+    return start;
 }
