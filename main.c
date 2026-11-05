@@ -1,45 +1,11 @@
 #include <stdio.h>
 #include "product.h"
 
-int main(void)
+product *menu(product *start)
 {
-    product *start = NULL;
-    product *current = NULL;
-    FILE *file = fopen("input.txt", "r");
-
     int id, quantity, choice;
     char name[100];
     float price;
-
-    if (file == NULL)
-    {
-        printf("input.txt not found\n");
-        return 1;
-    }
-
-    // load products from file first
-    while (fscanf(file, "%d %99s %f %d", &id, name, &price, &quantity) == 4)
-    {
-        if (id == 999 && strcmp(name, "exit") == 0 && price == 99.0 && quantity == 99)
-        {
-            break;
-        }
-
-        product *p = createProduct(id, name, price, quantity);
-
-        if (p == NULL)
-            break;
-
-        if (start == NULL)
-            start = current = p;
-        else {
-            p->prev = current;
-            current->next = p;
-            current = p;
-        }
-    }
-
-    fclose(file);
 
     while (1) {
         printf("\n--- Menu ---\n");
@@ -82,16 +48,19 @@ int main(void)
             scanf("%d %99s %f %d", &id, name, &price, &quantity);
 
             product *p = createProduct(id, name, price, quantity);
+            product *current = start;
 
             if (p == NULL)
                 break;
 
             if (start == NULL)
-                start = current = p;
+                start = p;
             else {
+                while (current->next != NULL)
+                    current = current->next;
+
                 p->prev = current;
                 current->next = p;
-                current = p;
             }
 
             printf("Product added.\n");
@@ -107,10 +76,8 @@ int main(void)
             {
                 printf("Product not found.\n");
             }
-            else {
-                if (p == current)
-                    current = p->prev;
-
+            else
+            {
                 start = delProduct(start, p);
                 printf("Product deleted.\n");
             }
@@ -120,6 +87,51 @@ int main(void)
             printf("Invalid choice\n");
         }
     }
+
+    return start;
+}
+
+int main(void)
+{
+    product *start = NULL;
+    product *current = NULL;
+    FILE *file = fopen("input.txt", "r");
+
+    int id, quantity;
+    char name[100];
+    float price;
+
+    if (file == NULL)
+    {
+        printf("input.txt not found\n");
+        return 1;
+    }
+
+    // load products from file first
+    while (fscanf(file, "%d %99s %f %d", &id, name, &price, &quantity) == 4)
+    {
+        if (id == 999 && strcmp(name, "exit") == 0 && price == 99.0 && quantity == 99)
+        {
+            break;
+        }
+
+        product *p = createProduct(id, name, price, quantity);
+
+        if (p == NULL)
+            break;
+
+        if (start == NULL)
+            start = current = p;
+        else {
+            p->prev = current;
+            current->next = p;
+            current = p;
+        }
+    }
+
+    fclose(file);
+
+    start = menu(start);
 
     return 0;
 }
