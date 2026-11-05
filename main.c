@@ -107,7 +107,7 @@ int main(void)
         return 1;
     }
 
-    // load products from file first
+    
     while (fscanf(file, "%d %99s %f %d", &id, name, &price, &quantity) == 4)
     {
         if (id == 999 && strcmp(name, "exit") == 0 && price == 99.0 && quantity == 99)
